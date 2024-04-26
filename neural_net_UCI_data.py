@@ -12,11 +12,11 @@ def parse_line(line: str) -> Tuple[List[float], List[float]]:
         tuple of input list and output list
     """
     tokens = line.split(",")
-    out = tokens[8]
-    output = [0 if out == "I" else 0.5 if out == "F" else 1]
+    tokens[0] = 0 if tokens[0] == "I" else 0.5 if tokens[0] == "F" else 1
+    output = [int(tokens[8])]
 
-    inpt = [float(x) for x in tokens[:8]]
-    return (inpt, output)
+    input = [float(x) for x in tokens[:8]]
+    return (input, output)
 
 
 def normalize(data: List[Tuple[List[float], List[float]]]):
@@ -42,21 +42,35 @@ def normalize(data: List[Tuple[List[float], List[float]]]):
     for i in range(len(data)):
         for j in range(len(data[i][0])):
             data[i][0][j] = (data[i][0][j] - leasts[j]) / (mosts[j] - leasts[j])
+
+    # youngest = 100
+    # oldest = 0
+    # for i in range(len(data)):
+    #     for j in range(len(data[i][0])):
+    #         if data[i][0][j] < youngest:
+    #             youngest = data[i][1][j]
+    #         if data[i][0][j] > oldest:
+    #             oldest = data[i][1][j]
+
+    # for i in range(len(data)):
+    #     for j in range(len(data[i][1])):
+    #         data[i][1][j] = (data[i][1][j] - youngest) / (oldest - youngest)
+
     return data
 
 
-with open("wine_data.txt", "r") as f:
-    training_data = [parse_line(line) for line in f.readlines() if len(line) > 4]
+# with open("wine_data.txt", "r") as f:
+#     training_data = [parse_line(line) for line in f.readlines() if len(line) > 4]
 
-# print(training_data)
-td = normalize(training_data)
-# print(td)
+# # print(training_data)
+# td = normalize(training_data)
+# # print(td)
 
-train, test = train_test_split(td)
+# train, test = train_test_split(td)
 
-nn = NeuralNet(13, 3, 1)
-nn.train(train, iters=10000, print_interval=1000, learning_rate=0.2)
+# nn = NeuralNet(13, 3, 1)
+# nn.train(train, iters=10000, print_interval=1000, learning_rate=0.2)
 
-for i in nn.test_with_expected(test):
-    difference = round(abs(i[1][0] - i[2][0]), 3)
-    print(f"desired: {i[1]}, actual: {i[2]} diff: {difference}")
+# for i in nn.test_with_expected(test):
+#     difference = round(abs(i[1][0] - i[2][0]), 3)
+#     print(f"desired: {i[1]}, actual: {i[2]} diff: {difference}")
