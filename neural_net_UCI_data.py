@@ -43,18 +43,17 @@ def normalize(data: List[Tuple[List[float], List[float]]]):
         for j in range(len(data[i][0])):
             data[i][0][j] = (data[i][0][j] - leasts[j]) / (mosts[j] - leasts[j])
 
-    # youngest = 100
-    # oldest = 0
-    # for i in range(len(data)):
-    #     for j in range(len(data[i][0])):
-    #         if data[i][0][j] < youngest:
-    #             youngest = data[i][1][j]
-    #         if data[i][0][j] > oldest:
-    #             oldest = data[i][1][j]
+    youngest = 100
+    oldest = 0
+    for i in range(len(data)):
+        if int(data[i][1][0]) < youngest:
+            youngest = int(data[i][1][0])
+        if int(data[i][1][0]) > oldest:
+            oldest = int(data[i][1][0])
 
-    # for i in range(len(data)):
-    #     for j in range(len(data[i][1])):
-    #         data[i][1][j] = (data[i][1][j] - youngest) / (oldest - youngest)
+    for i in range(len(data)):
+        for j in range(len(data[i][1])):
+            data[i][1][0] = (data[i][1][0] - youngest) / (oldest - youngest)
 
     return data
 
