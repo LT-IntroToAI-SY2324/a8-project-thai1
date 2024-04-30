@@ -13,9 +13,7 @@ network = NeuralNet(8, 5, 1)
 network.train(train_data)
 
 for i in network.test_with_expected(test_data):
-    # difference = round(abs(i[1][0] - i[2][0]), 3)
-
-    # 29 oldest abalone, rescale
-    desired = i[1][0] * 29
-    actual = i[2][0] * 29
-    print(f"desired: {desired}, actual: {actual} diff: {round(abs(desired - actual), 2)}")
+    difference = round(abs(i[1][0] - i[2][0]), 3)
+    # desired = i[1][0] * scale
+    # actual = i[2][0] * scale
+    print(f"desired: {i[1]}, actual: {i[2]} diff: {difference}")
