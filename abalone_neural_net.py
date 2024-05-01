@@ -9,11 +9,12 @@ training_data = normalize(training_data)
 
 train_data, test_data = train_test_split(training_data)
 
-network = NeuralNet(8, 5, 1)
+network = NeuralNet(8, 1, 1)
 network.train(train_data)
 
 for i in network.test_with_expected(test_data):
+    denormalized_age = (i[2][0] * 28) + 1
     difference = round(abs(i[1][0] - i[2][0]), 3)
-    # desired = i[1][0] * scale
-    # actual = i[2][0] * scale
-    print(f"desired: {i[1]}, actual: {i[2]} diff: {difference}")
+
+    print(f"desired: {i[1]}, actual: {i[2]}, diff: {difference}, denormalized_age: {denormalized_age}")
+# oldest : 29 | youngest : 1
