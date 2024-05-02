@@ -9,7 +9,7 @@ training_data = normalize(training_data)
 
 train_data, test_data = train_test_split(training_data)
 
-network = NeuralNet(8, 1, 1)
+network = NeuralNet(8, 3, 1)
 network.train(train_data)
 
 for i in network.test_with_expected(test_data):
